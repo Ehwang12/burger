@@ -3,9 +3,15 @@ var orm = require("../config/orm.js");
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 var orm = require("../config/orm.js");
 
-app.get()
+$.get("/", function(data) {
+    //recieve data from database query
+})
 
-app.post()
+$.post("/", function(data){
+    //post new burger to DOM
+})
 
-app.put()
+$.put("", function(data){
+    //send "devoured" burger to 'eatenBurger' div
+})
   
