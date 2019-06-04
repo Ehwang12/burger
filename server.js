@@ -1,16 +1,32 @@
-var express = require('express');
-var mysql = require("mysql");
+//set up dependencies
+const express = require("express");
+var handlebars = require("express-handlebars");
 
-var connection = mysql.createConnection({
-    host: "localhost",
-    port: 8889,
-    user: "root",
-    password: "root",
-    database: "burgers_db"
-});
+// Sets up the Express App
+// =============================================================
+var app = express();
+var PORT = process.env.PORT || 8080;
 
-connection.connect(function(err){
-    if(err) throw err;
-    console.log("connected as id " + connection.threadId);
-    
-});
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.engine("handlebars", handlebars({defaultLayout: "main"}));
+app.set("view engine", "handlebars");
+
+// Serve static content for the app from the "public" directory in the application directory.
+app.use(express.static("public"));
+
+// Routes
+// ===========================================================
+app.get("/", function(req, res) {
+    res.render("index")
+  });
+  
+  
+// Starts the server to begin listening
+// =============================================================
+app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+  
