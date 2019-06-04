@@ -17,6 +17,10 @@ router.get("/", function(req, res) {
 //post route
 router.post("/db/burgers", function(req, res) {
     burger.insertOne(["newBurger"], [req.body.newBurger])
-})
+});
 
+//put route
+router.put("/db/burgers/:id", function( req, res){
+
+});
 
