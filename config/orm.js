@@ -1,20 +1,42 @@
-var sqlConnection = require('../config/connection.js');
+var connection = require('../config/connection.js');
 
-var sqlCommands = function() {
-    function selectAll() {
-        //connection query to selecting all data from burgers table
-        connection.query("SELECT * FROM burgers", function(err, res){
-            res.render("index", {burgers: res});
+    //select all data from burgers table
+    function selectAll(cb) {
+        //query all info from burgers_db
+        var queryString = "SELECT * FROM burgers;"
+        connection.query(queryString, function(err, result) {
+            if (err) throw err;
+            console.log(result);
+            cb(result);
         });
     };
-    function insertOne() {
-        //connection query to Insert data into burgers table
-        connection.query("INSERT INTO burgers (burger_name, devoured) VALUES (? , ?)", , function(err, res){
-    });
-    function updateOne() {
-        //connection query to update burgers table
-        connection.query("UPDATE burgers SET ", function(err, res){
-    });
-};
 
-module.exports = sqlCommands;
+    //insert new burger into database
+    function insertOne(newBurger, cb) {
+        //insert new burger into table and input devoured boolean value
+        var queryString = "INSERT INTO burgers (burger_name) VALUES (?)"
+        connection.query(queryString,[newBurger], function(err, res){
+            if (err) throw err;
+            console.log(result);
+            cb(result);
+        });
+    };
+
+    //update burgers on table from uneaten to devoured
+    function updateOne(boolean, cb) {
+        //when devoured button clicked it should update the table and update devoured value 
+        var queryString = "UPDATE burgers SET devoured = ? WHERE id = ? ;"
+        connection.query(queryString, [boolean, id], function(err, res){
+            if (err) throw err;
+            console.log(result);
+            cb(result);
+        });
+    };
+
+    module.exports = {
+        selectAll, 
+        insertOne,
+        updateOne
+    };
+
+

@@ -13,5 +13,54 @@
     
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script>
+    
+    //devour it button click handler
+    $("#devoured").on("click", function(event) {
+        
+      var id = $(this).data("id");
+      var newSleep = $(this).data("newsleep");
+  
+      var newDevouredState = {
+        devoured: newSleep
+      };
+  
+      // Send the PUT request.
+      $.ajax("/" + id, {
+        type: "PUT",
+        data: devoured
+      }).then(
+        function() {
+          console.log("changed devoured to", newSleep);
+          // Reload the page to get the updated list
+          location.reload();
+        }
+      );
+    });
+  
+    //submit button event handler
+    $(".create-form").on("submit", function(event) {
+      // Make sure to preventDefault on a submit event.
+      event.preventDefault();
+  
+      var newCat = {
+        name: $("#ca").val().trim(),
+        sleepy: $("[name=sleepy]:checked").val().trim()
+      };
+  
+      // Send the POST request.
+      $.ajax("/api/cats", {
+        type: "POST",
+        data: newCat
+      }).then(
+        function() {
+          console.log("created new cat");
+          // Reload the page to get the updated list
+          location.reload();
+        }
+      );
+    });
+  
+    </script>
 </body>
 </html>
