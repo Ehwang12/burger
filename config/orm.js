@@ -15,7 +15,7 @@ var connection = require('../config/connection.js');
     function insertOne(newBurger, cb) {
         //insert new burger into table and input devoured boolean value
         var queryString = "INSERT INTO burgers (burger_name) VALUES (?)"
-        connection.query(queryString,[newBurger], function(err, res){
+        connection.query(queryString, newVal , function(err, res){
             if (err) throw err;
             console.log(result);
             cb(result);
@@ -23,10 +23,10 @@ var connection = require('../config/connection.js');
     };
 
     //update burgers on table from uneaten to devoured
-    function updateOne(boolean, cb) {
+    function updateOne(boolean, id, cb) {
         //when devoured button clicked it should update the table and update devoured value 
         var queryString = "UPDATE burgers SET devoured = ? WHERE id = ? ;"
-        connection.query(queryString, [boolean, id], function(err, res){
+        connection.query(queryString, [boolean], function(err, res){
             if (err) throw err;
             console.log(result);
             cb(result);
